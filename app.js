@@ -1,17 +1,14 @@
 //jshint esversion:6
 const express = require("express");
-const ejs = require("ejs");
-const bodyParser = require("body-parser");
-
 const app = express();
 
+// MIDDLEWARE
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(express.json());
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+// ROUTER
+const viewRouter = require("./router/viewRouter");
+app.use("/", viewRouter);
 
-app.listen(3000, () => {});
+module.exports = app;
